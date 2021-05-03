@@ -1,0 +1,42 @@
+Docker CLI(Command Line Interface)
+Docker'ı sudo komutu olmadan çalıştırma:
+sudo usermod -aG docker $USER
+Versiyon Kontrolü:
+docker version
+Docker çalışan sistem ile ilgili bilgilerl almak için:
+docker info
+Docker CLI da çalıştırılabilecek komutları görüntülemek için:
+docker
+Container yaratma:
+docker container run hello-world // Hello World imajından bir konteynır yaratıldı. Docker run ve container run aynı işleve sahip
+İmage silme:
+docker image rm -f hello-world
+Container oluşturma
+docker container create //oluşturur
+docker container start //başlatır
+Bu iki komutun birleşimi: docker container run --name ilkcontainer ozgurozturknet/app1
+NOT: Yukarıdaki komut image registry yani DockerHubdan image çekilerek yeni bir container oluşturur ve containera isim verir.
+Containerları listelemek:
+docker container ls -a
+NOT:Sistemde çalışan containerları listelemek isteseydik sadece ls komutunu
+kullanabilirdik. Ama çalışan, duran bütün containerları listelemek için -a parametremizi kullanıyoruz.
+
+docker container run -p 80:80 ozgurozturknet/adanzyedocker
+Not: -p parametresi hangi portun kullanılacağını belirtir.
+
+Container loglarını kontrol etmek için:
+
+docker container logs <container_id>
+Container Çalıştırma ve durdurma:
+docker start <container>
+docker stop <container>
+
+Container silme:
+docker container rm <container_id>
+Not: Çalışan bir containerı silemezsiniz hata verir.
+Öncelikle docker container stop ile durdurulur ve silinir
+ya da docker container rm -f <container_id> ile silebilirsiniz.
+
+Çalışan bir containera bağlanma:
+docker container exec -it <container> sh // Bu containerın shelline bağlan
+Not: -it komutu interaktif modda bağlan ve terminal aç anlamında..
