@@ -40,3 +40,39 @@ ya da docker container rm -f <container_id> ile silebilirsiniz.
 Çalışan bir containera bağlanma:
 docker container exec -it <container> sh // Bu containerın shelline bağlan
 Not: -it komutu interaktif modda bağlan ve terminal aç anlamında..
+-------------------------------------------------------------------------------------------------------------------------
+Containerlar tek bir uygulama çalıştırmak için oluşturulurlar
+Containerlar bu tek uygulamanın çalışması için gerekli
+tüm gereksinimlerin önceden hazırlandığı image dediğimiz objelerden yaratılır.
+Bir container içinde çalışan ana uygulama durdurulduğu anda container da durdurulur.
+Containerda bir sıkıntı oluşturulursa container'a bağlanılarak çözülmez.
+Container durdurulur ve yerine sıfırdan yeni bir container yaratılır.
+EĞer sıkıntı ayarlarla veya config ile ilgiliyse sorun imaj yaratma aşamasında çözülür
+yeni imaj yaratılır ve yeni bir container yaratılır.
+
+Bütün durdurulmuş containerları silmek:
+docker container prune
+Bütün imageleri silmek
+docker image prune -a
+Volume oluşturma:
+docker volume create ilkvolume
+Volume bilgilerini inceleme:
+docker volume inspect ilkvolume
+Volume listeleme:
+docker volume ls
+Volume bağlama:
+docker container run -it -v ilkvolume:/uygulama alpine sh
+Not:Docker run ile container oluşturuyoruz. -it ile interaktif
+-v ile hangi klasöre bağlamak istiyorsak onu yazıyoruz alpine imajından yaratıyoruz ve
+shell açıyoruz.
+
+-v Kullanımı: volume_adi:container içindeki klasör
+
+Readonly mount etmek için:
+-v ilkvolume:/deneme:ro
+
+Container çalışması bittikten sonra silmek için:
+docker container run --rm parametresi kullanılır.
+
+Dockera ait tüm dosyaları(image,container,volume) temizleme
+docker system prune --volumes
