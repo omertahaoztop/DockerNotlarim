@@ -76,3 +76,4 @@ docker container run --rm parametresi kullanılır.
 
 Dockera ait tüm dosyaları(image,container,volume) temizleme
 docker system prune --volumes
+-------------------------------------------------------------------------
