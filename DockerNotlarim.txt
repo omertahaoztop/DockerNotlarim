@@ -77,3 +77,41 @@ docker container run --rm parametresi kullanılır.
 Dockera ait tüm dosyaları(image,container,volume) temizleme
 docker system prune --volumes
 -------------------------------------------------------------------------
+Docker Logging
+Container loglarını incelemek:
+docker logs   <container_ismi veya id>
+Daha detaylı bir log çıktısı almak için:
+docker logs --details  <container_ismi veya id>
+Container Ne zaman oluşturulduğunu incelemek:
+docker logs -t  <container_ismi veya id>
+Belirli bir zamana kadar logları incelemek:
+docker logs --until <zaman_damgası>  <container_ismi veya id>
+Belirli bir zamandan sonraki logları incelemek:
+docker logs --since zaman_damgası  <container_ismi veya id>
+Son birkaç satır logu incelemek:
+docker logs --tail 3 c <container_ismi veya id>
+Not: Son 3 logu çıktı olarak verecek
+Anlık log çıktısı almak:
+docker logs -f  <container_ismi veya id>
+
+Docker Top ve Stats:
+Containerda hangi processlerin çalıştığını öğrenmek:
+docker top <container_ismi veya id>
+Containerların memory/cpu kullanımını listelemek:
+1)docker stats
+2)docker <container_ismi veya id>
+
+Memory Limiti:
+docker container run -d -it --memory=100m alpine sh
+Not:100mb memory kullanmasına izin veriliyor
+docker container run -d -it --memory=100m --memory-swap=200m alpine sh
+Not:100mb memory ve 200m swap kullanımına izin verildi
+Çekirdek sınırlaması:
+docker container run -d -it --cpus="1.5" alpine sh
+1.5 core'a izin verildi.
+--cpuset-cpus="core numarası" parametresi ile hangi core kullanacağına izin vermek.
+
+Docker Environment Variables:
+Environment Variable oluşturma:
+docker container run -it --env VAR1=deneme1 ubuntu bash
+Not:Environment Variable'lar case sensitivedir. Büyük küçük ayrımına dikkat edilir.
