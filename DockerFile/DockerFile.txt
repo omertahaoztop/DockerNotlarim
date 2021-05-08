@@ -1,0 +1,63 @@
+Docker Image İsimlendirme Yapısı:
+docker.io/omertahaoztop/dockercalisiyorum:latest
+Docker.io:registry url
+omertahaoztop/dockercalisiyorum: Repo
+latest:tag
+
+docker.io/ubuntu:18.04
+
+ubuntu:repository
+
+18.04: tag
+
+Özel bir tag atanmazsa Latest varsayılan tag olarak çağırılır.
+
+Docker Image oluşturma:
+From imaj:tag
+Mutlaka olmalıdır.
+Oluşturulacak imajın hangi imajdan oluşturulacağını belirtir.
+Örnek: FROM ubuntu:18.04
+LABEL | İmaj metadata’sına key=value şeklinde değer çiftleri eklemek için kullanılır. Örneğin team=development şeklinde bir etiket eklenerek bu imajın development ekibinin kullanması için yaratıldığı belirtilebilir.
+Ör: LABEL version:1.0.8
+ADD | COPY ile aynı işi yapar yani dosya ya da klasör kopyalarsınız. Fakat ADD bunun yanında dosya kaynağının bir url olmasına da izin verir. Ayrıca ADD ile kaynak olarak bir .tar dosyası belirtilirse bu dosya imaja .tar olarak sıkıştırılmış haliyle değil de açılarak kopyalanır.
+Ör: ADD https://wordpress.org/latest.tar.gz /temp
+ENV | Imaj içinde environment variable tanımlamak için kullanılır
+Ör: ENV TEMP_FOLDER="/temp"
+VOLUME | Imaj içerisinde volume tanımlanamızı sağlayan talimat. Eğer bu volume host sistemde varsa container bunu kullanır. Yoksa yeni volume oluşturur.
+Ör: VOLUME /myvol
+ENTRYPOINT | Bu talimat ile bir containerın çalıştırılabilir bir uygulama gibi ayarlanabilmesini sağlarsınız.
+Ör: ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+Run Komutu:
+Run komutu ile shellde bir komut çalıştırmak istersek
+kullanılır.
+Örnek: RUN apt-get update
+WORKDIR:
+İstediğimiz klasöre geçer ve oradan çalışmaya devam ederiz:
+Örnek: WORKDIR /usr/src/app
+Copy Komutu:
+İmaj içine dosya veya klasör kopyalamak için kullanırız.
+Örnek:COPY /source/user/src/app
+EXPOSE komutu:
+Hangi portlar üstünden erişilebileceği:
+Örnek: EXPOSE 80/tcp
+CMD Komutu:
+Varsayılan olarak çalıştırmasını istediğimiz komut
+Örnek: CMD java app1
+HEALTHCHECK Komutu:
+Kontaynerın hala çalışıp çalışmadığını kontrol etmek için
+
+Basit Bir Dockerfile Örnek:
+FROM ubuntu:18.04
+COPY ./app
+RUN make/app
+CMD python /app/app.py
+
+
+Dockerfile'dan image oluşturmak:
+docker image build -t omertahaoztop/merhaba .
+Oluşturulan containerı çalıştırmak:
+docker container run omertahaoztop/merhaba
+İmage de neler yapıldığını kontrol etme:
+docker image history omertahaoztop/merhaba
+Image'i docker huba gönderme:
+docker image push omertahaoztop/merhaba
