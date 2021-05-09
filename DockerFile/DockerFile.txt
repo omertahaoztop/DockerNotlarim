@@ -61,3 +61,21 @@ docker container run omertahaoztop/merhaba
 docker image history omertahaoztop/merhaba
 Image'i docker huba gönderme:
 docker image push omertahaoztop/merhaba
+
+
+ADD ve COPY farkı
+ADD kaynak hedef
+Copy ile aynı işi yapar yani dosya ya da klasör kopyalarsınız
+
+Fakat  ADD bunun yanında dosya kaynağının bir url olmasına da izin verir
+Ayrıca ADD ile kaynak olarak bir .tar dosyası belirtilirse bu dosya imaja .tar olarak
+sıkıştırılmış haliyle değil açılarak kopyalanır.
+Örnek: ADD https://wordpress.org/latest.tar.gz/temp
+
+ENTRYPOINT ile CMD farkı
+ENTRYPOINT ile girilen komut runtime'da yani container çalıştırılırken
+değiştirilemez.
+CMD ile yazılan  değiştirilebilir.
+
+ENTRYPOINT ve CMD aynı anda kullanılırsa CMD'de yazılan ENTRYPOINT talimatında yazılana
+parametre olarak eklenir
